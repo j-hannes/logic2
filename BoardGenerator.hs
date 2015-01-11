@@ -28,8 +28,10 @@ makeRow rowLength blocks = Row {
     margin = calculateMargin rowLength blocks
     
 calculateMargin :: Int -> [Int] -> Int
-calculateMargin rowLength blocks =
-    rowLength - (sum blocks + length blocks - 1)
+calculateMargin rowLength blockLengths =
+    rowLength - (sum blockLengths + numberOfBlocks - 1)
+  where
+    numberOfBlocks = length blockLengths 
 
 makeBlock :: Int -> Int -> Block
 makeBlock margin size = Block size (size > margin)
