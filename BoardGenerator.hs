@@ -11,7 +11,7 @@ import Types.Block (Block(Block))
 import Types.Cell (Cell(..))
 
 makeBoard :: Board.Spec -> Board
-makeBoard (rows,columns) =
+makeBoard (rows, columns) =
     Board {
         Board.rows = map (makeRow $ length columns) rows
       , Board.columns = map (makeRow $ length rows) columns

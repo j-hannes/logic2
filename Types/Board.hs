@@ -11,13 +11,13 @@ data Board = Board {
 }
 
 instance Show Board where
-  show (Board _rows _cols) = showTitle ++ showRows ++ showColumns
+  show board = showTitle ++ showRows ++ showColumns
     where
       showTitle = "BOARD (" ++ show width ++ "x" ++ show height ++ ")\n"
-      showRows = "rows:\n" ++ concatMap show _rows
-      showColumns = "columns:\n" ++ concatMap show _cols
-      width = length _cols
-      height = length _rows
+      showRows = "rows:\n" ++ concatMap show (rows board)
+      showColumns = "columns:\n" ++ concatMap show (columns board)
+      width = length $ columns board
+      height = length $ rows board
 
 type Spec = ([[Int]], [[Int]])
 

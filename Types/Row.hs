@@ -15,7 +15,8 @@ spaceTen x | x < 10 = " " ++ show x
            | otherwise = show x
 
 instance Show Row where
-  show (Row _blocks _cells _margin _hasOverlap) =
-    show _cells ++ " " ++ spaceTen _margin ++ 
-    (if _hasOverlap then "*" else " ") ++ " " ++ show _blocks ++ "\n"
+  show row =
+    show (cells row) ++ " " ++
+    spaceTen (margin row) ++ (if hasOverlap row then "*" else " ") ++
+    " " ++ show (blocks row) ++ "\n"
 
