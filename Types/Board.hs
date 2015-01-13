@@ -1,17 +1,24 @@
 module Types.Board (
-    Board(..)
+    Board
+  , Grid(..)
+  , draw
   , Spec
   ) where
 
 import Types.Row
 
-data Board = Board {
-    rows :: [Row]
-  , columns :: [Row]
+data Grid a = Grid {
+    rows :: [a]
+  , columns :: [a]
 }
 
-instance Show Board where
-  show board = showTitle ++ showRows ++ showColumns
+instance Functor Grid where
+  fmap f (Grid rs cs) = Grid (map f rs) (map f cs)
+
+type Board = Grid Row
+
+draw :: Board -> String
+draw board = showTitle ++ showRows ++ showColumns
     where
       showTitle = "BOARD (" ++ show width ++ "x" ++ show height ++ ")\n"
       showRows = "rows:\n" ++ concatMap show (rows board)

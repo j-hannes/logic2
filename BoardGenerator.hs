@@ -1,6 +1,6 @@
 module BoardGenerator (makeBoard) where
 
-import Types.Board (Board(Board))
+import Types.Board (Board, Grid(Grid))
 import qualified Types.Board as Board
 
 import Types.Row (Row(Row))
@@ -12,7 +12,7 @@ import Types.Cell (Cell(..))
 
 makeBoard :: Board.Spec -> Board
 makeBoard (rows, columns) =
-    Board {
+    Grid {
         Board.rows = map (makeRow $ length columns) rows
       , Board.columns = map (makeRow $ length rows) columns
     }

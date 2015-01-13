@@ -1,7 +1,7 @@
 module Types.Row (Row(..)) where
 
-import Types.Block
-import Types.Cell
+import Types.Block (Block)
+import Types.Cell (Cell(..))
 
 data Row = Row {
     blocks :: [Block]
