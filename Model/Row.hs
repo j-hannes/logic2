@@ -4,6 +4,7 @@ module Model.Row (
 
 data Row = Row {
     space :: Int
+  , combinations :: [[Int]]
   , blocks :: [Int]
 } deriving Show
 

@@ -3,17 +3,19 @@ module Combinator (
 ) where
 
 import Model.Cell (Cell(..))
-import Model.Puzzle (Puzzle(..))
+import Model.PuzzlePlus (PuzzlePlus(..))
+import Model.Row (Row(..))
 import qualified Permutator as P
 
 type CellArray = [Cell]
 
-calculateCombinations :: Puzzle -> ([[CellArray]], [[CellArray]])
+calculateCombinations :: PuzzlePlus -> ([[CellArray]], [[CellArray]])
 calculateCombinations puzzle =
-    (combine width horizontal, combine height vertical) 
+    (combine width $ map blocks horizontal,
+    combine height $ map blocks vertical) 
   where
-    horizontal = horizontalBlocks puzzle
-    vertical = verticalBlocks puzzle
+    horizontal = horizontalRows puzzle
+    vertical = verticalRows puzzle
     height = length horizontal
     width = length vertical
     combine l = map $ map interpretConfig . configVariations l

@@ -5,9 +5,9 @@ import System.Environment (getArgs)
 import Controller.Puzzle (parsePuzzle, drawPretty)
 import Solver
 
-import Model.Puzzle
+import Model.PuzzlePlus
 
-loadPuzzle :: String -> IO Puzzle
+loadPuzzle :: Int -> IO PuzzlePlus
 loadPuzzle n = do
     content <- readFile $ "puzzles/" ++ show n
     return $ parsePuzzle content
@@ -19,7 +19,7 @@ main = do
     [puzzleNumber, steps] <- getArgs
 
     -- read the puzzle config from file system and parse into puzzle
-    puzzle <- loadPuzzle puzzleNumber
+    puzzle <- loadPuzzle (read puzzleNumber)
     
     -- precalculate all block combinations of the puzzle
     let solvedPuzzle = solve puzzle (read steps)

@@ -6,21 +6,21 @@ import Data.List (transpose)
 
 import Combinator (calculateCombinations)
 import Model.Cell (Cell(..))
-import Model.Puzzle (Puzzle(..))
+import Model.PuzzlePlus (PuzzlePlus(..))
 
-solve :: Puzzle -> Int -> Puzzle
+solve :: PuzzlePlus -> Int -> PuzzlePlus
 solve puzzle steps =
     foldl (\value f -> f value) puzzle belt
   where
     (hcs, vcs) = calculateCombinations puzzle
     belt = take steps $ cycle [solveHorizontal hcs, solveVertical vcs]
 
-solveVertical :: [[[Cell]]] -> Puzzle -> Puzzle
+solveVertical :: [[[Cell]]] -> PuzzlePlus -> PuzzlePlus
 solveVertical combs puzzle = puzzle {cellMatrix = transpose evaluated}
   where
     evaluated = zipWith evaluate combs (transpose $ cellMatrix puzzle)
 
-solveHorizontal :: [[[Cell]]] -> Puzzle -> Puzzle
+solveHorizontal :: [[[Cell]]] -> PuzzlePlus -> PuzzlePlus
 solveHorizontal combs puzzle = puzzle {cellMatrix = evaluated}
   where
     evaluated = zipWith evaluate combs (cellMatrix puzzle)
