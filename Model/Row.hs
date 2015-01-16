@@ -3,8 +3,8 @@ module Model.Row (
 ) where
 
 data Row = Row {
-    blocks :: [Int]
-  , space :: Int
+    space :: Int
+  , blocks :: [Int]
 } deriving Show
 
 

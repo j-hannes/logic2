@@ -7,6 +7,12 @@ import Controller.Puzzle
 import Model.BlockLenghts
 import Solver
 
+import Model.Puzzle
+
+loadPuzzle n = do
+    content <- readFile $ "puzzles/" ++ show n
+    return $ parsePuzzle content
+
 -- | Usage: ./blocks [puzzleNumber] [stepsOfSolution]
 main :: IO ()
 main = do
@@ -23,5 +29,5 @@ main = do
     let solvedPuzzle = solve puzzle steps
 
     -- output the (partially) solved puzzle
-    drawPuzzle solvedPuzzle
+    drawPretty solvedPuzzle
  

@@ -1,4 +1,4 @@
-module Combinator (
+module Combinator2 (
     calculateCombinations
 ) where
 
@@ -7,7 +7,7 @@ import Control.Monad (replicateM)
 import Model.Cell
 import Model.Puzzle
 import Model.Row
-import qualified Permutator as P
+import Permutator
 
 type CellArray = [Cell]
 
@@ -38,13 +38,13 @@ mergeBlocks :: [Int] -> [Int] -> [Int]
 mergeBlocks [] [gap] = [gap]
 mergeBlocks (block:blocks) (gap:gaps) =
     gap : block : mergeBlocks blocks gaps
--- mergeBlocks x y = error ("blocks: " ++ show x ++ "\ngaps: " ++ show y)
 
 gapVariations :: Int -> [Int] -> [[Int]]
-gapVariations space blocks = addMinLengths permutations
+gapVariations space blocks =
+    addMinLengths $ filter (\x -> sum x == v) permutations
   where
     v = variability space blocks
-    permutations = P.e4 v gapCount
+    permutations = e2 gapCount v
     gapCount = length blocks + 1
     addMinLengths = map . zipWith (+) $ gapMinLengths blocks
 
