@@ -1,24 +1,10 @@
 module Controller.Puzzle (
-    makePuzzle
-  , drawPuzzle
-  , drawPretty
+    drawPretty
   , parsePuzzle
-  , parseConfig
 ) where
 
-import Model.Puzzle (Puzzle(..))
-import Model.PuzzleSpec
-import Model.Cell
-
-makePuzzle :: PuzzleSpec -> Puzzle
-makePuzzle (hBlocks,vBlocks) = Puzzle hBlocks vBlocks matrix
-  where
-    matrix = replicate height $ replicate width Unknown
-    height = length vBlocks
-    width = length hBlocks
-
-drawPuzzle :: Puzzle -> IO ()
-drawPuzzle puzzle = mapM_ print $ cellMatrix puzzle
+import Model.Puzzle (Puzzle(Puzzle))
+import Model.Cell (Cell(..))
 
 drawPretty :: Puzzle -> IO ()
 drawPretty (Puzzle _ _ cm) = do
@@ -36,7 +22,7 @@ drawLine cl = do
 coloredFields :: Cell -> String
 coloredFields Blank = show White
 coloredFields Filled = show Black
-coloredFields Unknown = show Green --"\ESC[1;90m[]\ESC[m"
+coloredFields Unknown = show Green
 
 data ColorBlock =
     Black | White | Cyan | Purple | Blue | Yellow | Green | Red
@@ -54,6 +40,15 @@ instance Show ColorBlock where
 
 parsePuzzle :: String -> Puzzle
 parsePuzzle = makePuzzle . parseConfig
+
+type PuzzleSpec = ([[Int]],[[Int]]) 
+
+makePuzzle :: PuzzleSpec -> Puzzle
+makePuzzle (hBlocks,vBlocks) = Puzzle hBlocks vBlocks matrix
+  where
+    matrix = replicate height $ replicate width Unknown
+    height = length vBlocks
+    width = length hBlocks
 
 parseConfig :: String -> ([[Int]], [[Int]])
 parseConfig inputStream = (readValues hBlocks, readValues vBlocks)

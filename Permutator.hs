@@ -1,11 +1,14 @@
 module Permutator (
-  e3, e4
+    e3
+  , e4
 ) where
 
 import Control.Monad (replicateM)
 
+fill :: Int -> [Int] -> [Int]
 fill n xs = xs ++ [n - sum xs]
 
+e3 :: Int -> Int -> [[Int]]
 e3 variation gapCount =
     map (fill variation)
       $ filter (\xs -> sum xs <= variation)
@@ -32,16 +35,27 @@ applyIncrease (p,l) = (p, increase (length l - p) l)
 ff :: (Int, [Int]) -> [(Int, [Int])]
 ff (1,xs) = [applyIncrease (1,xs)]
 ff (n,xs) = applyIncrease (n,xs) : ff (n-1,xs)
-data RoseTree a = RoseTree a [RoseTree a] deriving Show
 
-roseTreeUntil 0 f x = RoseTree x []
+data RoseTree a = RoseTree a [RoseTree a]
+
+type Node = (Int,[Int])
+
+roseTreeUntil :: Int -> (Node -> [Node]) -> Node -> RoseTree Node
+roseTreeUntil 0 _ x = RoseTree x []
 roseTreeUntil n f x =
   RoseTree x (map (roseTreeUntil (n-1) f) (f x))
 
-buildRoseTree variation gaps = roseTreeUntil variation ff (gaps, replicate gaps 0)
+buildRoseTree :: Int -> Int -> RoseTree Node
+buildRoseTree variation gaps =
+    roseTreeUntil variation ff (gaps, replicate gaps 0)
 
+collectFromTree :: RoseTree Node -> [Node]
 collectFromTree (RoseTree x []) = [x]
 collectFromTree (RoseTree x xs) = x : concatMap collectFromTree xs
 
-e4 variation gaps = map (fill variation) $ map snd $ collectFromTree $ buildRoseTree (variation ) (gaps - 1)
+e4 :: Int -> Int -> [[Int]]
+e4 variation gaps =
+    map (fill variation . snd) (collectFromTree tree)
+  where
+    tree = buildRoseTree variation (gaps - 1)
 

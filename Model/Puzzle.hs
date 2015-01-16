@@ -2,12 +2,11 @@ module Model.Puzzle (
   Puzzle(..)
 ) where
 
-import Model.BlockLenghts
-import Model.Cell
+import Model.Cell (Cell)
 
 data Puzzle = Puzzle {
-    horizontalBlocks :: [BlockLenghts]
-  , verticalBlocks :: [BlockLenghts]
+    horizontalBlocks :: [[Int]]
+  , verticalBlocks :: [[Int]]
   , cellMatrix :: [[Cell]]
 } deriving Show
 

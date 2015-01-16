@@ -2,18 +2,11 @@ module Combinator (
     calculateCombinations
 ) where
 
-import Control.Monad (replicateM)
-
-import Model.Cell
-import Model.Puzzle
-import Model.Row
+import Model.Cell (Cell(..))
+import Model.Puzzle (Puzzle(..))
 import qualified Permutator as P
 
 type CellArray = [Cell]
-
-allCombinationsMatching :: Row -> CellArray -> [CellArray]
-allCombinationsMatching row config = undefined
-    --configVariationsMatching 
 
 calculateCombinations :: Puzzle -> ([[CellArray]], [[CellArray]])
 calculateCombinations puzzle =
@@ -38,7 +31,6 @@ mergeBlocks :: [Int] -> [Int] -> [Int]
 mergeBlocks [] [gap] = [gap]
 mergeBlocks (block:blocks) (gap:gaps) =
     gap : block : mergeBlocks blocks gaps
--- mergeBlocks x y = error ("blocks: " ++ show x ++ "\ngaps: " ++ show y)
 
 gapVariations :: Int -> [Int] -> [[Int]]
 gapVariations space blocks = addMinLengths permutations

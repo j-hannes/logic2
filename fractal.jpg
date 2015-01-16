@@ -1,1 +1,0 @@
-let e3 variation fields = map (fill variation) $ filter (\xs -> sum xs <= variation) $ replicateM (fields-1) [0..variation]

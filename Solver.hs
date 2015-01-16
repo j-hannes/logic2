@@ -4,9 +4,9 @@ module Solver (
 
 import Data.List (transpose)
 
-import Combinator
-import Model.Cell
-import Model.Puzzle
+import Combinator (calculateCombinations)
+import Model.Cell (Cell(..))
+import Model.Puzzle (Puzzle(..))
 
 solve :: Puzzle -> Int -> Puzzle
 solve puzzle steps =
