@@ -9,9 +9,9 @@ import Model.Cell (Cell(..))
 import Model.PuzzlePlus (PuzzlePlus(..))
 
 solve :: PuzzlePlus -> Int -> PuzzlePlus
-solve puzzle steps =
-    foldl (\value f -> f value) puzzle belt
+solve puzzle steps = puzzle' {cbs = (hcs, vcs)}
   where
+    puzzle' = foldl (\value f -> f value) puzzle belt
     (hcs, vcs) = calculateCombinations puzzle
     belt = take steps $ cycle [solveHorizontal hcs, solveVertical vcs]
 

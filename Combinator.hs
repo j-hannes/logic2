@@ -10,9 +10,11 @@ import qualified Permutator as P
 type CellArray = [Cell]
 
 calculateCombinations :: PuzzlePlus -> ([[CellArray]], [[CellArray]])
-calculateCombinations puzzle =
+calculateCombinations puzzle 
+  | null (fst $ cbs puzzle) = 
     (combine width $ map blocks horizontal,
     combine height $ map blocks vertical) 
+  | otherwise = cbs puzzle
   where
     horizontal = horizontalRows puzzle
     vertical = verticalRows puzzle

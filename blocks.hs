@@ -2,7 +2,7 @@ module Main (main) where
 
 import System.Environment (getArgs)
 
-import Controller.Puzzle (parsePuzzle, drawPretty)
+import Controller.Puzzle (parsePuzzle)
 import Solver
 
 import Model.PuzzlePlus
@@ -25,5 +25,5 @@ main = do
     let solvedPuzzle = solve puzzle (read steps)
 
     -- output the (partially) solved puzzle
-    drawPretty solvedPuzzle
+    print solvedPuzzle
  
